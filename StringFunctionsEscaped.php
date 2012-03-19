@@ -33,7 +33,7 @@ if ( !class_exists('ExtStringFunctions',false) &&
 
  {{#replace_e:value|from|to}}
 
- Returns the given value with all occurences of 'from' replaced with 'to'.
+ Returns the given value with all occurrences of 'from' replaced with 'to'.
  See: http://php.net/manual/function.str-replace.php
 
 

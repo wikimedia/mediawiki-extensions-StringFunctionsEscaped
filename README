@@ -65,7 +65,7 @@ See: http://php.net/manual/function.str-pad.php
 
 <nowiki>{{#replace_e:value|from|to}}</nowiki> 
 
-Returns the given value with all occurences of 'from' replaced with 'to'.
+Returns the given value with all occurrences of 'from' replaced with 'to'.
 
 See: http://php.net/manual/function.str-replace.php
 

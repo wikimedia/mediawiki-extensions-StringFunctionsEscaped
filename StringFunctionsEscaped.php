@@ -60,7 +60,6 @@ $wgExtensionCredits['parserhook'][] = array(
 	'path'            => __FILE__,
 	'name'            => 'StringFunctionsEscaped',
 	'version'         => '1.0.1', // July 7, 2010
-	'descriptionmsg'  => 'pfunc_desc',
 	'author'          => array('Jack D. Pond'),
 	'license'         => 'GNU Version 2',
 	'url'             => 'https://www.mediawiki.org/wiki/Extension:StringFunctionsEscaped',

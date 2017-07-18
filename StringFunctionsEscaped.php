@@ -67,7 +67,7 @@ $wgExtensionCredits['parserhook'][] = array(
 
 $dir = dirname( __FILE__ ) . '/';
 
-$wgExtensionMessagesFiles['StringFunctionsEscaped'] = $dir . 'StringFunctionsEscaped.i18n.php';
+$wgExtensionMessagesFiles['StringFunctionsEscapedMagic'] = $dir . 'StringFunctionsEscaped.i18n.magic.php';
 
 $wgHooks['ParserFirstCallInit'][] = 'ExtStringFunctionsEscaped::onParserFirstCallInit';
 

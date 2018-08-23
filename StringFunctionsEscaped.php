@@ -18,7 +18,7 @@ if ( !class_exists('ExtStringFunctions',false) &&
 
  Returns the last position of key inside the given value, or -1 if the key is
  not found. When using this to search for the last delimiter, add +1 to the
- result to retreive position after the last delimiter. This also works when
+ result to retrieve position after the last delimiter. This also works when
  the delimiter is not found, because "-1 + 1" is zero, which is the beginning
  of the given value.
  See: http://php.net/manual/function.strrpos.php

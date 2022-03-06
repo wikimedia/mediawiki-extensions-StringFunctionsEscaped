@@ -1,5 +1,5 @@
 <?php
-use MediaWiki\Extensions\ParserFunctions as PF;
+use MediaWiki\Extension\ParserFunctions as PF;
 
 if ( !defined( 'MEDIAWIKI' ) )
 	die( 'StringFunctionsEscaped::This file is a MediaWiki extension, it is not a valid entry point' );

@@ -1,8 +1,9 @@
 <?php
 use MediaWiki\Extension\ParserFunctions as PF;
 
-if ( !defined( 'MEDIAWIKI' ) )
+if ( !defined( 'MEDIAWIKI' ) ) {
 	die( 'StringFunctionsEscaped::This file is a MediaWiki extension, it is not a valid entry point' );
+}
 if ( !( class_exists( PF::class, false ) ) ) {
 	// Commented out because this (unmaintained) extension isn't configured
 	// in Wikimedia CI with the proper extension dependencies. (T275173)
@@ -10,7 +11,8 @@ if ( !( class_exists( PF::class, false ) ) ) {
 }
 /*
 
- Defines a superset of string parser functions that allow character escaping in the 'search for' and 'replace with' arguments.
+ Defines a superset of string parser functions that allow character escaping in
+ the 'search for' and 'replace with' arguments.
 
  {{#pos_e:value|key|offset}}
 
@@ -60,16 +62,16 @@ if ( !( class_exists( PF::class, false ) ) ) {
  Licensed under GNU version 2
 */
 
-$wgExtensionCredits['parserhook'][] = array(
+$wgExtensionCredits['parserhook'][] = [
 	'path'            => __FILE__,
 	'name'            => 'StringFunctionsEscaped',
 	'version'         => '1.0.1', // July 7, 2010
-	'author'          => array('Jack D. Pond'),
+	'author'          => [ 'Jack D. Pond' ],
 	'license'         => 'GNU Version 2',
 	'url'             => 'https://www.mediawiki.org/wiki/Extension:StringFunctionsEscaped',
-);
+];
 
-$dir = dirname( __FILE__ ) . '/';
+$dir = __DIR__ . '/';
 
 $wgExtensionMessagesFiles['StringFunctionsEscapedMagic'] = $dir . 'StringFunctionsEscaped.i18n.magic.php';
 
@@ -78,12 +80,12 @@ $wgHooks['ParserFirstCallInit'][] = 'ExtStringFunctionsEscaped::onParserFirstCal
 class ExtStringFunctionsEscaped {
 
 	public static function onParserFirstCallInit( $parser ) {
-		$parser->setFunctionHook( 'pos_e',         array( __CLASS__, 'runPos_e' ) );
-		$parser->setFunctionHook( 'rpos_e',        array( __CLASS__, 'runRPos_e' ) );
-		$parser->setFunctionHook( 'pad_e',         array( __CLASS__, 'runPad_e' ) );
-		$parser->setFunctionHook( 'replace_e',     array( __CLASS__, 'runReplace_e' ) );
-		$parser->setFunctionHook( 'explode_e',     array( __CLASS__, 'runExplode_e' ) );
-		$parser->setFunctionHook( 'stripnewlines', array( __CLASS__, 'runStrip_nl' ) );
+		$parser->setFunctionHook( 'pos_e',         [ __CLASS__, 'runPos_e' ] );
+		$parser->setFunctionHook( 'rpos_e',        [ __CLASS__, 'runRPos_e' ] );
+		$parser->setFunctionHook( 'pad_e',         [ __CLASS__, 'runPad_e' ] );
+		$parser->setFunctionHook( 'replace_e',     [ __CLASS__, 'runReplace_e' ] );
+		$parser->setFunctionHook( 'explode_e',     [ __CLASS__, 'runExplode_e' ] );
+		$parser->setFunctionHook( 'stripnewlines', [ __CLASS__, 'runStrip_nl' ] );
 
 		return true;
 	}
@@ -94,7 +96,7 @@ class ExtStringFunctionsEscaped {
 	 * Note: If the needle is not found, empty string is returned.
 	 * Note: The needle is limited to specific length.
 	 */
-	public static function runPos_e ( &$parser, $inStr = '', $inNeedle = '', $inOffset = 0 ) {
+	public static function runPos_e( &$parser, $inStr = '', $inNeedle = '', $inOffset = 0 ) {
 		return PF::runPos( $parser, $inStr, stripcslashes( $inNeedle ), $inOffset );
 	}
 
@@ -104,7 +106,7 @@ class ExtStringFunctionsEscaped {
 	 * Note: If the needle is not found, -1 is returned.
 	 * Note: The needle is limited to specific length.
 	 */
-	public static function runRPos_e( &$parser , $inStr = '', $inNeedle = '' ) {
+	public static function runRPos_e( &$parser, $inStr = '', $inNeedle = '' ) {
 		return PF::runRPos( $parser, $inStr, stripcslashes( $inNeedle ) );
 	}
 
@@ -113,18 +115,18 @@ class ExtStringFunctionsEscaped {
 	 * Note: Length of the resulting string is limited.
 	 */
 	public static function runPad_e( &$parser, $inStr = '', $inLen = 0, $inWith = '', $inDirection = '' ) {
-		switch ($inDirection) {
+		switch ( $inDirection ) {
 		default:
 		case 'left':
-			return CoreParserFunctions::padleft( $parent, $inStr, $inLen, stripcslashes($inWith) ?: ' ' );
+			return CoreParserFunctions::padleft( $parent, $inStr, $inLen, stripcslashes( $inWith ) ?: ' ' );
 		case 'right':
-			return CoreParserFunctions::padright( $parent, $inStr, $inLen, stripcslashes($inWith) ?: ' ' );
+			return CoreParserFunctions::padright( $parent, $inStr, $inLen, stripcslashes( $inWith ) ?: ' ' );
 		case 'center':
-			$amt = ($inLen - strlen( $inStr )) / 2;
-			$amt = strlen($inStr) + ($amt < 0 ? 0 : $amt);
+			$amt = ( $inLen - strlen( $inStr ) ) / 2;
+			$amt = strlen( $inStr ) + ( $amt < 0 ? 0 : $amt );
 			return self::runPad_e(
 				$parser,
-				self::runPad_e( $parser, $inStr, $amt, $inWith, 'left'),
+				self::runPad_e( $parser, $inStr, $amt, $inWith, 'left' ),
 				$inLen,
 				$inWith
 			);
@@ -155,7 +157,7 @@ class ExtStringFunctionsEscaped {
 	/**
 	 * {{#stripnewlines:value}}
 	 */
-	public static function runStrip_nl( &$parser , $inStr = '' ) {
+	public static function runStrip_nl( &$parser, $inStr = '' ) {
 		return preg_replace( stripcslashes( '/\n\n+/' ), stripcslashes( '\n' ), $inStr );
 	}
 

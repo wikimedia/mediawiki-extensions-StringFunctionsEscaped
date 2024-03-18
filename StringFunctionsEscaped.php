@@ -80,11 +80,11 @@ $wgHooks['ParserFirstCallInit'][] = 'ExtStringFunctionsEscaped::onParserFirstCal
 class ExtStringFunctionsEscaped {
 
 	public static function onParserFirstCallInit( $parser ) {
-		$parser->setFunctionHook( 'pos_e',         [ __CLASS__, 'runPos_e' ] );
-		$parser->setFunctionHook( 'rpos_e',        [ __CLASS__, 'runRPos_e' ] );
-		$parser->setFunctionHook( 'pad_e',         [ __CLASS__, 'runPad_e' ] );
-		$parser->setFunctionHook( 'replace_e',     [ __CLASS__, 'runReplace_e' ] );
-		$parser->setFunctionHook( 'explode_e',     [ __CLASS__, 'runExplode_e' ] );
+		$parser->setFunctionHook( 'pos_e', [ __CLASS__, 'runPos_e' ] );
+		$parser->setFunctionHook( 'rpos_e', [ __CLASS__, 'runRPos_e' ] );
+		$parser->setFunctionHook( 'pad_e', [ __CLASS__, 'runPad_e' ] );
+		$parser->setFunctionHook( 'replace_e', [ __CLASS__, 'runReplace_e' ] );
+		$parser->setFunctionHook( 'explode_e', [ __CLASS__, 'runExplode_e' ] );
 		$parser->setFunctionHook( 'stripnewlines', [ __CLASS__, 'runStrip_nl' ] );
 
 		return true;
@@ -116,15 +116,15 @@ class ExtStringFunctionsEscaped {
 	 */
 	public static function runPad_e( &$parser, $inStr = '', $inLen = 0, $inWith = '', $inDirection = '' ) {
 		switch ( $inDirection ) {
-		default:
-		case 'left':
-			return CoreParserFunctions::padleft( $parent, $inStr, $inLen, stripcslashes( $inWith ) ?: ' ' );
-		case 'right':
-			return CoreParserFunctions::padright( $parent, $inStr, $inLen, stripcslashes( $inWith ) ?: ' ' );
-		case 'center':
-			$amt = ( $inLen - strlen( $inStr ) ) / 2;
-			$amt = strlen( $inStr ) + ( $amt < 0 ? 0 : $amt );
-			return self::runPad_e(
+			default:
+			case 'left':
+				return CoreParserFunctions::padleft( $parent, $inStr, $inLen, stripcslashes( $inWith ) ?: ' ' );
+			case 'right':
+				return CoreParserFunctions::padright( $parent, $inStr, $inLen, stripcslashes( $inWith ) ?: ' ' );
+			case 'center':
+				$amt = ( $inLen - strlen( $inStr ) ) / 2;
+				$amt = strlen( $inStr ) + ( $amt < 0 ? 0 : $amt );
+				return self::runPad_e(
 				$parser,
 				self::runPad_e( $parser, $inStr, $amt, $inWith, 'left' ),
 				$inLen,
